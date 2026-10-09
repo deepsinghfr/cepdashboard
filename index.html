@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding Through Games | Analytics Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js creates the charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app">
+
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">C</div>
+        <div>
+          <h2>CodeQuest</h2>
+          <p>CEP Analytics</p>
+        </div>
+      </div>
+
+      <p class="menu-label">MENU</p>
+      <nav>
+        <a class="nav-link active" href="#overview">▦ &nbsp; Overview</a>
+        <a class="nav-link" href="#performance">▥ &nbsp; Performance</a>
+        <a class="nav-link" href="#questions">☷ &nbsp; Question Analysis</a>
+        <a class="nav-link" href="#students">♙ &nbsp; Student Records</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="project-mini">
+          <span class="mini-dot"></span>
+          <div>
+            <strong>College Project</strong>
+            <p>Coding through Games</p>
+          </div>
+        </div>
+        <p class="sidebar-note">Learning outcomes dashboard</p>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">COLLEGE EXTENSION PROJECT</p>
+          <h1>Learning Analytics</h1>
+          <p class="subtitle">
+            Explore student performance and the impact of coding activities.
+          </p>
+        </div>
+        <div class="topbar-right">
+          <span class="sample-badge">● Sample dataset</span>
+          <button class="button button-light" id="exportBtn">
+            ↓ Export CSV
+          </button>
+        </div>
+      </header>
+
+      <div class="notice">
+        <strong>Demo data:</strong> The workbook identifies the 10 included
+        student records as sample data. Replace them with verified results
+        before reporting actual findings.
+      </div>
+
+      <section class="filter-bar">
+        <div>
+          <label for="testFilter">Test period</label>
+          <select id="testFilter">
+            <option value="All">All students</option>
+            <option value="Pre">Pre-test</option>
+            <option value="Post">Post-test</option>
+          </select>
+        </div>
+        <div>
+          <label for="sectionFilter">Question section</label>
+          <select id="sectionFilter">
+            <option value="All">All sections</option>
+            <option value="A: Computer Basics">Computer Basics</option>
+            <option value="B: Algorithms & Logic">Algorithms &amp; Logic</option>
+            <option value="C: Programming Concepts">Programming Concepts</option>
+            <option value="D: Games & Awareness">Games &amp; Awareness</option>
+          </select>
+        </div>
+        <div class="filter-hint">
+          <span class="live-dot"></span>
+          Charts update when filters change
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-top">
+            <span>Students assessed</span>
+            <span class="stat-icon purple">♙</span>
+          </div>
+          <h2 id="totalStudents">10</h2>
+          <p id="studentCaption">5 pre-test · 5 post-test</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span>Average score</span>
+            <span class="stat-icon blue">▤</span>
+          </div>
+          <h2 id="averageScore">13.8<span class="unit">/20</span></h2>
+          <p>Across selected records</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span>Average percentage</span>
+            <span class="stat-icon green">％</span>
+          </div>
+          <h2 id="averagePercent">69%</h2>
+          <p>Average student percentage</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span>Highest score</span>
+            <span class="stat-icon orange">↗</span>
+          </div>
+          <h2 id="highestScore">18<span class="unit">/20</span></h2>
+          <p id="lowestScore">Lowest score: 8/20</p>
+        </article>
+      </section>
+
+      <section class="chart-grid" id="performance">
+        <article class="panel panel-large">
+          <div class="panel-heading">
+            <div>
+              <h3>Pre-test vs Post-test</h3>
+              <p>Average student percentage</p>
+            </div>
+            <span class="panel-tag">Session impact</span>
+          </div>
+          <div class="chart-wrap chart-tall">
+            <canvas id="comparisonChart"></canvas>
+          </div>
+          <div class="insight" id="improvementInsight">
+            Average percentage increased from 55% to 83% in the sample data.
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Score distribution</h3>
+              <p>Students in each score band</p>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="distributionChart"></canvas>
+          </div>
+          <div class="chart-footnote">Score range: 0–20</div>
+        </article>
+
+        <article class="panel panel-full">
+          <div class="panel-heading">
+            <div>
+              <h3>Section-wise performance</h3>
+              <p>Percentage of correct answers by topic</p>
+            </div>
+          </div>
+          <div class="chart-wrap chart-tall">
+            <canvas id="sectionChart"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section class="chart-grid" id="questions">
+        <article class="panel panel-large">
+          <div class="panel-heading">
+            <div>
+              <h3>Question-wise accuracy</h3>
+              <p>How often each question was answered correctly</p>
+            </div>
+          </div>
+          <div class="chart-wrap chart-tall">
+            <canvas id="questionChart"></canvas>
+          </div>
+          <p class="chart-footnote">
+            Select a section above to focus on its questions.
+          </p>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Answer choices</h3>
+              <p>Distribution of selected options</p>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="answersChart"></canvas>
+          </div>
+          <p class="chart-footnote">
+            Shows A, B, C and D responses for the selected section.
+          </p>
+        </article>
+      </section>
+
+      <section class="panel student-panel" id="students">
+        <div class="panel-heading student-heading">
+          <div>
+            <h3>Student results</h3>
+            <p>Scores and percentages for individual records</p>
+          </div>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search student..."
+            aria-label="Search students"
+          >
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Class</th>
+                <th>Test</th>
+                <th>Score</th>
+                <th>Percentage</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+          </table>
+        </div>
+        <div class="table-footer" id="tableFooter"></div>
+      </section>
+
+      <footer>
+        <p>CodeQuest · CEP Learning Analytics Dashboard</p>
+        <p>Built with HTML, CSS and JavaScript</p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
